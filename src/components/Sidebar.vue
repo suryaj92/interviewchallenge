@@ -13,11 +13,11 @@
           <horizontal-scroll
             class="horizontal-scroll sidebar__recents__contacts"
           >
-            <div class="outer">
+            <div class="sidebar__recents__contacts__outer">
               <div
                 v-for="item in recentContacts"
                 :key="item.firstname"
-                class="inner-content"
+                class="sidebar__recents__contacts__inner_content"
               >
                 <span :style="{ background: item.color }">
                   {{ item.firstname[0] }}
@@ -36,13 +36,8 @@
         </el-col>
       </el-row>
       <div class="sidebar__contact_form">
-        <el-form
-          :label-position="labelPosition"
-          :model="ruleForm"
-          :rules="rules"
-          ref="ruleForm"
-        >
-          <el-form-item label="Name">
+        <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm">
+          <el-form-item label="Name" prop="name">
             <el-button
               type="text"
               icon="el-icon-plus"
@@ -50,10 +45,18 @@
               @click="contactlists = true"
               >Select from contacts</el-button
             >
-            <el-input v-model="ruleForm.name"></el-input>
+            <el-input
+              type="text"
+              v-model="ruleForm.name"
+              autocomplete="off"
+            ></el-input>
           </el-form-item>
-          <el-form-item label="Email" class="last-item">
-            <el-input v-model="ruleForm.email"></el-input>
+          <el-form-item label="Email" prop="email">
+            <el-input
+              type="email"
+              v-model="ruleForm.email"
+              autocomplete="off"
+            ></el-input>
           </el-form-item>
         </el-form>
         <el-button type="text" icon="el-icon-plus">Add another email</el-button>
@@ -70,7 +73,7 @@
           <el-col
             ><el-button
               type="primary"
-              @click="submitForm(ruleForm)"
+              @click="submitForm('ruleForm')"
               style="float:right"
               >Next</el-button
             ></el-col
@@ -147,10 +150,18 @@ export default {
       },
       rules: {
         name: [
-          { required: true, message: "Please input name", trigger: "blur" },
+          {
+            required: true,
+            message: "Name is required",
+            trigger: "blur",
+          },
         ],
         email: [
-          { required: true, message: "Please input email", trigger: "blur" },
+          {
+            required: true,
+            message: "Email is required",
+            trigger: "blur",
+          },
         ],
       },
       allContacts: contactItems(contacts),
@@ -193,6 +204,9 @@ export default {
       font-weight: 600;
     }
     &__contacts {
+      display: flex;
+      width: 100%;
+      height: 125px;
       span {
         color: $white;
         padding: 15px;
@@ -202,6 +216,24 @@ export default {
         height: 15px;
         text-align: center;
         margin: 0 auto;
+      }
+      &__outer {
+        display: flex;
+        flex: 1;
+        width: auto;
+        flex-flow: row nowrap;
+        align-items: center;
+      }
+      &__inner_content {
+        flex-shrink: 0;
+        align-items: center;
+        justify-content: center;
+        width: 75px;
+        text-align: center;
+        border-radius: 5px;
+      }
+      &__inner_content:not(:first-of-type) {
+        margin-left: 30px;
       }
     }
   }
@@ -229,29 +261,6 @@ export default {
     &__footer {
       margin-top: 100px;
     }
-  }
-  .horizontal-scroll {
-    display: flex;
-    width: 100%;
-    height: 125px;
-  }
-  .outer {
-    display: flex;
-    flex: 1;
-    width: auto;
-    flex-flow: row nowrap;
-    align-items: center;
-  }
-  .inner-content {
-    flex-shrink: 0;
-    align-items: center;
-    justify-content: center;
-    width: 75px;
-    text-align: center;
-    border-radius: 5px;
-  }
-  .inner-content:not(:first-of-type) {
-    margin-left: 30px;
   }
   &__selectcontact {
     padding: 0 20px 20px;

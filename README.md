@@ -1,4 +1,4 @@
-# vuejs2
+# interviewchallenge
 
 ## Project setup
 ```
