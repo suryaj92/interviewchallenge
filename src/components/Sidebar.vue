@@ -133,7 +133,6 @@ const contactItems = _.flow([
 
 export default {
   name: "Sidebar",
-  props: {},
   components: {
     HorizontalScroll,
   },
