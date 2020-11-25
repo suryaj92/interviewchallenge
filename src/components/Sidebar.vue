@@ -20,7 +20,7 @@
                 class="sidebar__recents__contacts__inner_content"
               >
                 <span :style="{ background: item.color }">
-                  {{ item.firstname[0] }}
+                  {{ item.firstname.charAt(0) }}
                 </span>
                 <p>
                   {{
@@ -210,12 +210,13 @@ export default {
       height: 125px;
       span {
         color: $white;
-        padding: 15px;
+        padding: 20px;
         border-radius: 50%;
         display: block;
-        width: 15px;
-        height: 15px;
+        width: 20px;
+        height: 20px;
         text-align: center;
+        font-weight: 600;
         margin: 0 auto;
       }
       &__outer {
