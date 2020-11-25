@@ -97,7 +97,7 @@
         <div class="sidebar__selectcontact__scroll_list">
           <ul>
             <li v-for="item in allContacts" :key="item.firstname">
-              <h4 v-if="typeof item === 'string'" :id="item">
+              <h4 v-if="typeof item === 'string'">
                 {{ item }}
               </h4>
               <span v-else>
@@ -110,7 +110,9 @@
           <div class="sidebar__selectcontact__alphabet">
             <div v-for="item in allContacts" :key="item.firstname">
               <h4 v-if="typeof item === 'string'">
-                {{ item }}
+                <span @click="doSumthin">
+                  {{ item }}
+                </span>
               </h4>
             </div>
           </div>
@@ -139,8 +141,8 @@ export default {
   },
   data() {
     return {
-      drawer: true,
-      contactlists: false,
+      drawer: false,
+      contactlists: true,
       labelPosition: "top",
       ruleForm: {
         name: "",
@@ -176,6 +178,9 @@ export default {
           return false;
         }
       });
+    },
+    doSumthin() {
+      console.log("object");
     },
   },
 };
@@ -289,7 +294,7 @@ export default {
     }
     &__alphabet {
       position: fixed;
-      top: 130px;
+      top: 140px;
       right: 30px;
       h4 {
         margin: 10px 0;
