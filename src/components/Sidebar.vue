@@ -268,7 +268,6 @@ export default {
         cursor: pointer;
         .el-icon-back:before {
           font-size: 20px;
-          padding-bottom: -10px;
         }
       }
     }
