@@ -126,7 +126,7 @@ import contacts from "../data/contacts.js";
 import HorizontalScroll from "vue-horizontal-scroll";
 import "vue-horizontal-scroll/dist/vue-horizontal-scroll.css";
 
-const contactItems = _.flow([
+const contactLists = _.flow([
   (arr) => _.orderBy(arr, "firstname"),
   (arr) => _.groupBy(arr, (o) => _.get(o, "firstname[0]", "").toUpperCase()),
   (groups) => _.flatMap(groups, (v, k) => [k, ...v]),
@@ -162,7 +162,7 @@ export default {
           },
         ],
       },
-      allContacts: contactItems(contacts),
+      allContacts: contactLists(contacts),
       recentContacts: contacts,
     };
   },
