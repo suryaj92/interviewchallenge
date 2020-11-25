@@ -1,7 +1,7 @@
 <template>
   <div class="sidebar">
     <el-drawer title="Create an invoice" :visible.sync="drawer">
-      <el-divider></el-divider>
+      <el-divider class="sidebar__divider"></el-divider>
       <el-row class="sidebar__recents">
         <el-col :span="24"
           ><h4>
@@ -36,7 +36,12 @@
         </el-col>
       </el-row>
       <div class="sidebar__contact_form">
-        <el-form :label-position="labelPosition" :model="formLabelAlign">
+        <el-form
+          :label-position="labelPosition"
+          :model="ruleForm"
+          :rules="rules"
+          ref="ruleForm"
+        >
           <el-form-item label="Name">
             <el-button
               type="text"
@@ -45,10 +50,10 @@
               @click="contactlists = true"
               >Select from contacts</el-button
             >
-            <el-input v-model="formLabelAlign.name"></el-input>
+            <el-input v-model="ruleForm.name"></el-input>
           </el-form-item>
           <el-form-item label="Email" class="last-item">
-            <el-input v-model="formLabelAlign.email"></el-input>
+            <el-input v-model="ruleForm.email"></el-input>
           </el-form-item>
         </el-form>
         <el-button type="text" icon="el-icon-plus">Add another email</el-button>
@@ -63,7 +68,10 @@
             ></el-col
           >
           <el-col
-            ><el-button type="primary" @click="submitForm" style="float:right"
+            ><el-button
+              type="primary"
+              @click="submitForm(ruleForm)"
+              style="float:right"
               >Next</el-button
             ></el-col
           >
@@ -134,16 +142,33 @@ export default {
       drawer: true,
       contactlists: false,
       labelPosition: "top",
-      formLabelAlign: {
+      ruleForm: {
         name: "",
         email: "",
+      },
+      rules: {
+        name: [
+          { required: true, message: "Please input name", trigger: "blur" },
+        ],
+        email: [
+          { required: true, message: "Please input email", trigger: "blur" },
+        ],
       },
       allContacts: contactItems(contacts),
       recentContacts: contacts,
     };
   },
   methods: {
-    submitForm() {},
+    submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          alert("submit!");
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
+    },
   },
 };
 </script>
@@ -156,6 +181,9 @@ export default {
     color: $black;
     margin-bottom: 0;
     font-weight: 600;
+  }
+  &__divider {
+    margin: 24px 0 0;
   }
   &__recents {
     padding: 0 20px 20px;
@@ -232,7 +260,7 @@ export default {
       font-weight: 600;
     }
     &__scroll_list {
-      height: 75vh;
+      height: 80vh;
       width: 90%;
       padding: 0;
       margin: 0;
