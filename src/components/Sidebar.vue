@@ -121,7 +121,7 @@
 
 <script>
 import _ from "lodash";
-import contacts from "../assets/data/contacts.js";
+import contacts from "../data/contacts.js";
 import HorizontalScroll from "vue-horizontal-scroll";
 import "vue-horizontal-scroll/dist/vue-horizontal-scroll.css";
 
