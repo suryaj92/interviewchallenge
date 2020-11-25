@@ -84,9 +84,7 @@
     <el-drawer :visible.sync="contactlists" :withHeader="false">
       <div class="sidebar__selectcontact">
         <h4>
-          <span @click="contactlists = false" style="cursor: pointer"
-            ><i class="el-icon-back"
-          /></span>
+          <span @click="contactlists = false"><i class="el-icon-back"/></span>
           Select Contact
         </h4>
         <el-divider></el-divider>
@@ -96,7 +94,7 @@
           clearable
         >
         </el-input>
-        <div class="sidebar__selectcontact__scroll_list" style="overflow:auto">
+        <div class="sidebar__selectcontact__scroll_list">
           <ul>
             <li v-for="item in allContacts" :key="item.firstname">
               <h4 v-if="typeof item === 'string'" :id="item">
@@ -187,6 +185,9 @@ export default {
 @import "../assets/scss/_variables";
 
 .sidebar {
+  .el-input__inner:focus {
+    border-color: $primary-color;
+  }
   .el-drawer__header {
     color: $black;
     margin-bottom: 0;
@@ -255,9 +256,6 @@ export default {
       background: $primary-color;
       border-color: $primary-color;
     }
-    .el-input__inner:focus {
-      border-color: $primary-color;
-    }
     &__footer {
       margin-top: 100px;
     }
@@ -266,8 +264,19 @@ export default {
     padding: 0 20px 20px;
     h4 {
       font-weight: 600;
+      span {
+        cursor: pointer;
+        .el-icon-back:before {
+          font-size: 20px;
+          padding-bottom: -10px;
+        }
+      }
     }
     &__scroll_list {
+      .el-divider--horizontal {
+        margin: 12px 0;
+      }
+      overflow: auto;
       height: 80vh;
       width: 90%;
       padding: 0;
@@ -282,6 +291,9 @@ export default {
       position: fixed;
       top: 130px;
       right: 30px;
+      h4 {
+        margin: 10px 0;
+      }
     }
   }
 }
